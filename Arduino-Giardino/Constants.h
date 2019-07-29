@@ -16,6 +16,10 @@
 
 #pragma once
 
+// Baud rate for the serial port
+const uint32_t baudRate = 115200;
+
+// I/O assignments
 const uint8_t relayLights = 7;
 const uint8_t relayAerator = 8;
 const uint8_t relayAttention = 6;

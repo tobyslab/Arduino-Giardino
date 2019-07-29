@@ -14,9 +14,8 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//#include <Wire.h>
-
 // String definitions for localization etc.
+#include "SerialUtils.h"
 #include "I2CUtils.h"
 #include "ClockUtils.h"
 #include "Constants.h"
@@ -55,7 +54,7 @@ void(*resetFunc) (void) = 0;
 void setup() {
 	uint8_t error;
 
-	Serial.begin(115200);
+	serialBegin();
 
 	// Prevent 'bouncing' of the outputs as these relays are on when the output is low
 	digitalWrite(relayLights, relayOff);
@@ -78,19 +77,19 @@ void setup() {
 	// Water sensing pin (use a 10k ohm pull-down resistor on the input)
 	pinMode(waterLevel, INPUT);
 
-	Serial.print(appName);
-	Serial.print(" ");
-	Serial.print(revision);
-	Serial.print(" ");
-	Serial.println(infoUrl);
+	serialPrint(appName);
+	serialPrint(" ");
+	serialPrint(revision);
+	serialPrint(" ");
+	serialPrintln(infoUrl);
 
 	if (error)
 	{
-		Serial.print(i2cErrorString);
-		Serial.print(": ");
-		Serial.print(error);
-		Serial.print(urlPrefix);
-		Serial.println(i2cerrUrl);
+		serialPrintln(i2cErrorString);
+		serialPrintln(": ");
+		serialPrintln(error);
+		serialPrintln(urlPrefix);
+		serialPrintln(i2cerrUrl);
 	}
 	lcdBegin(16, 2);
 	lcdSetBacklight(255);
@@ -102,7 +101,7 @@ void setup() {
 	lcdPrintCentered(1, infoUrl);
 	delay(3000);
 	lcdClear();
-	Serial.println("Ready");
+	serialPrintln("Ready");
 	lcdHome();
 	attachInterrupt(1, light_ISR, RISING);
 }
@@ -236,7 +235,6 @@ void idleDisplay(void) {
 
 	lcdSetCursor(0, 1);
 
-	//char dateStr[] = "00/00/0000";
 	char dateStr[10];
 	getFormattedDate(dateStr, '/');
 	lcdPrint(dateStr);

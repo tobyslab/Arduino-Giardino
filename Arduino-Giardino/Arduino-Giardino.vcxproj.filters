@@ -49,6 +49,9 @@
     <ClInclude Include="I2CUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SerialUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MemoryUtils.cpp">
@@ -67,6 +70,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="I2CUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SerialUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -125,6 +125,7 @@
     <ClInclude Include="LocalStrings.h" />
     <ClInclude Include="LogUtils.h" />
     <ClInclude Include="MemoryUtils.h" />
+    <ClInclude Include="SerialUtils.h" />
     <ClInclude Include="__vm\.Arduino-Giardino.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +135,7 @@
     <ClCompile Include="LcdUtils.cpp" />
     <ClCompile Include="LogUtils.cpp" />
     <ClCompile Include="MemoryUtils.cpp" />
+    <ClCompile Include="SerialUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
