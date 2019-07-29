@@ -14,11 +14,10 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//#include <EEPROM.h>
-#include <Wire.h>
-//#include <DS3231.h>
+//#include <Wire.h>
 
 // String definitions for localization etc.
+#include "I2CUtils.h"
 #include "ClockUtils.h"
 #include "Constants.h"
 #include "LocaleStrings.h"
@@ -84,9 +83,7 @@ void setup() {
 	Serial.print(revision);
 	Serial.print(" ");
 	Serial.println(infoUrl);
-	Wire.begin();
-	Wire.beginTransmission(0x27);
-	error = Wire.endTransmission();
+
 	if (error)
 	{
 		Serial.print(i2cErrorString);

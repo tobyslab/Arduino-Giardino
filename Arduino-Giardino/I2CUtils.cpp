@@ -14,25 +14,26 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// ClockUtils.h
+#include "I2CUtils.h"
 
-#ifndef _CLOCKUTILS_h
-#define _CLOCKUTILS_h
+void wireBegin(void)
+{
+	Wire.begin();
+}
 
-#if defined(ARDUINO) && ARDUINO >= 100
-	#include "arduino.h"
-#else
-	#include "WProgram.h"
-#endif
+void wireBeginTransmission(uint8_t address)
+{
+	Wire.beginTransmission(address);
+}
 
-#include <DS3231.h>
+uint8_t wireEndTransmission(void)
+{
+	return Wire.endTransmission();
+}
 
-uint8_t clockGetMonth(void);
-uint8_t clockGetDate(void);
-uint8_t clockGetYear(void);
-uint8_t clockGetHour(void);
-uint8_t clockGetMinute(void);
-uint8_t clockGetSecond(void);
-
-#endif
-
+bool wireCheckAddress(uint8_t address)
+{
+	wireBegin();
+	wireBeginTransmission(0x27);
+	return wireEndTransmission();
+}
