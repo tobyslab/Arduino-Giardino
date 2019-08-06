@@ -78,8 +78,6 @@ void lcdPrint(uint32_t v)
 	lcd.print(v);
 }
 
-
-
 void lcdSetCursor(uint8_t col, uint8_t row)
 {
 	lcd.setCursor(col, row);

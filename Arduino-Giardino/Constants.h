@@ -19,6 +19,11 @@
 // Baud rate for the serial port
 const uint32_t baudRate = 115200;
 
+// RTC I2C address
+const uint8_t rtcAddress = 0x57;
+// LCD I2C address
+const uint8_t lcdAddress = 0x27;
+
 // I/O assignments
 const uint8_t relayLights = 7;
 const uint8_t relayAerator = 8;

@@ -31,9 +31,20 @@ uint8_t wireEndTransmission(void)
 	return Wire.endTransmission();
 }
 
-bool wireCheckAddress(uint8_t address)
+uint8_t wireCheckAddress(uint8_t address)
 {
 	wireBegin();
-	wireBeginTransmission(0x27);
+	wireBeginTransmission(address);
 	return wireEndTransmission();
+}
+
+uint8_t checkI2cDevices()
+{
+	uint8_t error;
+
+	error = wireCheckAddress(lcdAddress);
+	if (!error)
+	{
+		error = wireCheckAddress(rtcAddress);
+	}
 }

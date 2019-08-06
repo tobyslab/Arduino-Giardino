@@ -70,44 +70,14 @@ void getFormattedDate(char* str, char sep)
 	uint8_t month = clockGetMonth();
 	uint8_t day = clockGetDate();
 	uint16_t year = clockGetYear();
-	bool monthPadding = false;
-	bool dayPadding = false;
 
-	if (month < 10)
-		monthPadding = true;
-
-	if (day < 10)
-		dayPadding = true;
-
-	if (!monthPadding && !dayPadding)
-		sprintf(str, "%d%c%d%c20%d", month, sep, day, sep, year);
-	else if (monthPadding && !dayPadding)
-		sprintf(str, "0%d%c%d%c20%d", month, sep, day, sep, year);
-	else if (!monthPadding && dayPadding)
-		sprintf(str, "%d%c0%d%c20%d", month, sep, day, sep, year);
-	else
-		sprintf(str, "0%d%c0%d%c20%d", month, sep, day, sep, year);
+	sprintf(str, "%02d%c%02d%c20%02d", month, sep, day, sep, year);
 }
 
 void getFormattedHourMinute(char* str, char sep)
 {
 	uint8_t hour = clockGetHour();
 	uint8_t minute = clockGetMinute();
-	bool hourPadding = false;
-	bool minutePadding = false;
 
-	if (hour < 10)
-		hourPadding = true;
-
-	if (minute < 10)
-		minutePadding = true;
-
-	if (!hourPadding && !minutePadding)
-		sprintf(str, "%d%c%d", hour, sep, minute);
-	else if (hourPadding && !minutePadding)
-		sprintf(str, "0%d%c%d", hour, sep, minute);
-	else if (!hourPadding && minutePadding)
-		sprintf(str, "%d%c0%d", hour, sep, minute);
-	else 
-		sprintf(str, "0%d%c0%d", hour, sep, minute);
+	sprintf(str, "%02d%c%02d", hour, sep, minute);
 }

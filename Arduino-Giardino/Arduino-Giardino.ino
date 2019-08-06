@@ -52,8 +52,6 @@ bool inAlarm = false;
 void(*resetFunc) (void) = 0;
 
 void setup() {
-	uint8_t error;
-
 	serialBegin();
 
 	// Prevent 'bouncing' of the outputs as these relays are on when the output is low
@@ -82,6 +80,8 @@ void setup() {
 	serialPrint(revision);
 	serialPrint(" ");
 	serialPrintln(infoUrl);
+
+	uint8_t error = checkI2cDevices();
 
 	if (error)
 	{

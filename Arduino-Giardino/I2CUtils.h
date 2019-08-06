@@ -26,11 +26,13 @@
 #endif
 
 #include <Wire.h>
+#include "Constants.h"
 
 void wireBegin(void);
 void wireBeginTransmission(uint8_t address);
 uint8_t wireEndTransmission(void);
-bool wireCheckAddress(uint8_t address);
+uint8_t wireCheckAddress(uint8_t address);
+uint8_t checkI2cDevices(void);
 
 #endif
 
