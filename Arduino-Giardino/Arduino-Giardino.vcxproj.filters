@@ -40,9 +40,6 @@
     <ClInclude Include="LocaleStrings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LocalStrings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LogUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>

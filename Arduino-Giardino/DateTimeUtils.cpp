@@ -50,9 +50,14 @@ uint16_t getDaysTillNutrients(void)
 {
 	uint32_t todayJulian = getJulianFromClock();
 	uint32_t nutrientsJulian = getJulianFromEeprom(lastNutrientsEeprom);
-	uint16_t daysTillNutrients = nutrientCycle - (todayJulian - nutrientsJulian);
+	int16_t daysTillNutrients = nutrientCycle - (todayJulian - nutrientsJulian);
+	
+	if (daysTillNutrients < 0)
+	{
+		daysTillNutrients = 0;
+	}
 
-	return daysTillNutrients;
+	return (uint16_t) daysTillNutrients;
 }
 
 uint32_t getJulianFromEeprom(uint16_t offset)

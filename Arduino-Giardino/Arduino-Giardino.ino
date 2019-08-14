@@ -15,6 +15,7 @@
 */
 
 // String definitions for localization etc.
+#include <LiquidCrystal_PCF8574.h>
 #include "SerialUtils.h"
 #include "I2CUtils.h"
 #include "ClockUtils.h"
