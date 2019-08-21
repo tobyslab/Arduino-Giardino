@@ -15,7 +15,6 @@
 */
 
 // String definitions for localization etc.
-#include <LiquidCrystal_PCF8574.h>
 #include "SerialUtils.h"
 #include "I2CUtils.h"
 #include "ClockUtils.h"
@@ -124,6 +123,19 @@ void loop() {
 		resetFunc();
 	}
 
+	// OK button has been pressed in an alarm condition
+	if (inAlarm && digitalRead(buttonOk))
+	{
+		if (getDaysTillNutrients() <= 0)
+		{
+			lcdClear();
+			lcdPrintCentered(0, timerResetString);
+			delay(1000);
+			eepromWriteNutrientsAddedDate(clockGetYear(), clockGetMonth(), clockGetDate());
+			inAlarm = false;
+		}
+	}
+
 	// See if we need to put the attention LED on for water or nutrients
 	if (getDaysTillNutrients() <= 0)
 	{
@@ -133,6 +145,7 @@ void loop() {
 			{
 				lcdClear();
 				lcdPrintCentered(0, addNutrientsString);
+				lcdPrintCentered(1, pressOkString);
 				alarmThrottleTimer = millis();
 				logMessage(log_warning, addNutrientsString);
 				digitalWrite(attentionLed, HIGH);
@@ -272,6 +285,18 @@ void addLeadingZero(uint8_t num)
 		lcdPrint("0");
 	}
 	lcdPrint(num);
+}
+
+void delayAndYield(uint32_t ms)
+{
+	uint32_t delayTimer = millis();
+
+	while (millis() < delayTimer + ms)
+	{
+		//delayTimer = millis();
+		yield();
+	}
+	
 }
 
 void light_ISR()

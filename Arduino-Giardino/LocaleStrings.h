@@ -20,7 +20,9 @@
 static char menuString[] = "Menu";
 static char daysPlantedString[] = "Days planted";
 static char i2cErrorString[] = "I2C Error:";
-static char addNutrientsString[] = "Add nutrient";
+static char addNutrientsString[] = "Add nutrients";
+static char timerResetString[] = "Timer reset";
+static char pressOkString[] = "then press [OK]";
 static char addWaterString[] = "Add water";
 static char dayShort[] = "d";
 static char daysString[] = "days";
@@ -29,7 +31,7 @@ static char onString[] = "on";
 static char offString[] = "off";
 
 static char appName[] = "Arduino Giardino";
-static char revision[] = "v0.1a";
+static char revision[] = "v1.0.1a";
 static char infoUrl[] = "tlab.co/ag";
 static char i2cerrUrl[] = "tlab.co/i2cerr";
 static char urlPrefix[] = "https://";
