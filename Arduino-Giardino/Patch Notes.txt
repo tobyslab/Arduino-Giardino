@@ -1,0 +1,2 @@
+1.0.2a
+	Changed wording on display for days planted and days till feeding

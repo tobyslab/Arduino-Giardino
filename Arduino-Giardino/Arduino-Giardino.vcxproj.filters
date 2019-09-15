@@ -73,4 +73,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Patch Notes.txt" />
+  </ItemGroup>
 </Project>

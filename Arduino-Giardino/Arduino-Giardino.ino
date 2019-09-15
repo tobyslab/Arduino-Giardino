@@ -15,6 +15,7 @@
 */
 
 // String definitions for localization etc.
+#include <LiquidCrystal_PCF8574.h>
 #include "SerialUtils.h"
 #include "I2CUtils.h"
 #include "ClockUtils.h"
@@ -35,7 +36,7 @@ volatile bool lightButtonState = 0;
 volatile uint8_t lightChangedState = 0;
 // clockPeriod is the refresh rate of the RTC on the display, 
 // and controls the flashing : in the time display
-static int idleUpdatePeriodMs = 1000;
+static uint16_t idleUpdatePeriodMs = 1000;
 // days planted  and nutrient cycle display delay - controls the time between switching
 // between days planted and add nutrients in x days display in ms
 uint16_t displayCycleMs = 5000;
@@ -47,6 +48,8 @@ uint32_t displayCycleTimer = 0;
 uint32_t alarmThrottleTimer = 0;
 // Set to true if we are in alarm state
 bool inAlarm = false;
+// Menu state
+static uint16_t displayMenu = false;
 
 // Arduino reset vector at address 0
 void(*resetFunc) (void) = 0;
@@ -103,6 +106,7 @@ void setup() {
 	lcdClear();
 	serialPrintln("Ready");
 	lcdHome();
+	attachInterrupt(0, okMenu_ISR, RISING);
 	attachInterrupt(1, light_ISR, RISING);
 }
 
@@ -229,22 +233,18 @@ void idleDisplay(void) {
 	if (displayMode == 0)
 	{
 		lcdPrint(daysPlantedString);
-		if (daysPlanted < 100)
-		{
-			lcdPrint(": ");
-		}
+		lcdPrint(" ");
 		lcdPrint(daysPlanted);
+		lcdPrint(" ");
+		lcdPrint(daysString);
 	}
 	else
 	{
 		lcdPrint(addNutrientsString);
-		lcdPrint(":");
-		if (daysTillNutrients < 10)
-		{
-			lcdPrint(" ");
-		}
+		lcdPrint(" ");
 		lcdPrint(daysTillNutrients);
-		lcdPrint(dayShort);
+		lcdPrint(" ");
+		lcdPrint(daysString);
 	}
 
 	lcdSetCursor(0, 1);
@@ -297,6 +297,19 @@ void delayAndYield(uint32_t ms)
 		yield();
 	}
 	
+}
+
+void okMenu_ISR()
+{
+	static unsigned long last_interrupt_time = 0;
+	unsigned long interrupt_time = millis();
+	// If interrupts come faster than 200ms, assume it's a bounce and ignore
+	if (interrupt_time - last_interrupt_time > 200)
+	{
+		if (!displayMenu)
+			displayMenu = true;
+	}
+	last_interrupt_time = interrupt_time;
 }
 
 void light_ISR()
